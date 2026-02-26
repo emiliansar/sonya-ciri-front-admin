@@ -1,68 +1,187 @@
-:root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
+html {
+  line-height: 1.6;
+  max-width: 100vw;
+  width: 100%;
+  max-height: 100vh;
+  height: 100%;
+  box-sizing: border-box;
+  background-color: #0d0d0d;
 }
 
 body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+  line-height: 1.5;
+  color: #fff;
+  background-color: #0d0d0d;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+.card, [class*="card"] {
+  background-color: hsl(var(--card)) !important;
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+.chart-container, [class*="ChartContainer"] {
+  background-color: transparent;
 }
 
-@media (prefers-color-scheme: light) {
+.recharts-wrapper, .recharts-surface {
+  background-color: transparent;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
   :root {
-    color: #213547;
-    background-color: #ffffff;
+
+    --ed: 0 70% 50%;
+    --eat: 120 70% 45%;
+    --brain: 210 90% 50%;
+    --sleep: 270 70% 60%;
+    --exercise: 30 90% 55%;
+
+    /* Цвета для линий (полностью непрозрачные) */
+    --ed-line: hsl(0, 70%, 50%);
+    --eat-line: hsl(120, 70%, 45%);
+    --brain-line: hsl(210, 90%, 50%);
+    --sleep-line: hsl(270, 70%, 60%);
+    --exercise-line: hsl(30, 90%, 55%);
+
+    /* Цвета для заливки с разной прозрачностью */
+    --ed-fill: hsla(0, 70%, 50%, 0.3);
+    --eat-fill: hsla(120, 70%, 45%, 0.3);
+    --brain-fill: hsla(210, 90%, 50%, 0.3);
+    --sleep-fill: hsla(270, 70%, 60%, 0.3);
+    --exercise-fill: hsla(30, 90%, 55%, 0.3);
+
+    /* chart-* переменные для shadcn (опционально) */
+    --chart-1: var(--ed);
+    --chart-2: var(--eat);
+    --chart-3: var(--brain);
+    --chart-4: var(--sleep);
+    --chart-5: var(--exercise);
+
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+    --primary: 222.2 47.4% 11.2%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 222.2 84% 4.9%;
+    --radius: 0.5rem;
+    --chart-1: 12 76% 61%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
   }
-  a:hover {
-    color: #747bff;
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+
+    --ed: 0 70% 60%; /* Ярче для темной темы */
+    --eat: 120 70% 55%;
+    --brain: 210 90% 60%;
+    --sleep: 270 70% 70%;
+    --exercise: 30 90% 65%;
+
+    /* Цвета для сетки и осей */
+    --chart-grid: #333333;
+    --chart-text: #999999;
   }
-  button {
-    background-color: #f9f9f9;
-  }
+}
+
+@font-face {
+    font-family: 'inter';
+    src: url('/assets/fonts/Inter_18pt-Bold.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'inter';
+    src: url('/assets/fonts/Inter_18pt-SemiBold.ttf') format('truetype');
+    font-weight: 600;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'inter';
+    src: url('/assets/fonts/Inter_18pt-Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'inter';
+    src: url('/assets/fonts/Inter_18pt-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+
+.recharts-wrapper {
+  background-color: transparent !important;
+}
+
+.recharts-surface {
+  background-color: transparent !important;
+}
+
+/* Стили для Card в темной теме */
+.card, [class*="card"] {
+  background-color: hsl(var(--card)) !important;
+  border: 1px solid hsl(var(--border));
+}
+
+/* Стили для тултипа */
+[data-radix-popper-content-wrapper] {
+  background-color: hsl(var(--background)) !important;
+  border: 1px solid hsl(var(--border));
+  border-radius: var(--radius);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+/* Исправление цветов для темной темы */
+.dark {
+  --card: 222.2 84% 4.9%;
+  --background: 222.2 84% 4.9%;
+  --popover: 222.2 84% 4.9%;
+}
+
+.profile-link {
+  @apply w-full flex items-center justify-center border-[2px] border-gray-500 rounded-[10px] p-[10px] gap-[10px];
 }
