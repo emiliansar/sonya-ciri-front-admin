@@ -11,7 +11,7 @@ import MainChart from "@/components/main/chart/MainChart";
 export default function AppLayout() {
     return (
         <>
-            <BrowserRouter>
+            <BrowserRouter basename="/admin">
                 <Routes>
                     <Route path="/" element={<MainLayout />}>
                         <Route index element={<MainPage />} />

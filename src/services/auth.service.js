@@ -2,10 +2,14 @@ import axios from "axios";
 
 axios.defaults.withCredentials = true;
 
+const api = axios.create({
+  baseURL: import.meta.env.VITE_API_URL
+});
+
 class AuthService {
     async signup(dto) {
         try {
-            const {data} = await axios.post('/api/auth/signup', dto);
+            const {data} = await api.post('/auth/signup', dto);
             return data;
         } catch (error) {
             throw error;
@@ -14,7 +18,7 @@ class AuthService {
 
     async signin(dto) {
         try {
-            const {data} = await axios.post('/api/auth/signin', dto);
+            const {data} = await api.post('/auth/signin', dto);
             return data;
         } catch (error) {
             throw error;
@@ -25,7 +29,7 @@ class AuthService {
         console.log("Refresh получил refresh: " + JSON.stringify(refresh))
         try {
             console.log("Refresh запрос начался")
-            const {data} = await axios.post('/api/auth/refresh', {}, {
+            const {data} = await api.post('/auth/refresh', {}, {
                 headers: {
                     'Authorization': `Bearer ${refresh}`
                 }
@@ -39,7 +43,7 @@ class AuthService {
     async getUser(access_token, refresh_token, changeAccessToken) {
         console.log("Profile получил refresh: " + refresh_token)
         try {
-            const {data} = await axios.get('/api/auth/profile', {
+            const {data} = await api.get('/auth/profile', {
                 headers: {
                     'Authorization': `Bearer ${access_token}`
                 }
@@ -57,7 +61,7 @@ class AuthService {
                     changeAccessToken(newToken.access_token);
                     console.log("Новый access токен: " + newToken.access_token)
 
-                    const {data} = await axios.get('/api/auth/profile', {
+                    const {data} = await api.get('/auth/profile', {
                         headers: {
                             'Authorization': `Bearer ${newToken.access_token}`
                         }

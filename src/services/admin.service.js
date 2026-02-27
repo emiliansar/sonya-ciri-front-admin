@@ -2,12 +2,16 @@ import axios from "axios";
 
 axios.defaults.withCredentials = true;
 
+const api = axios.create({
+  baseURL: import.meta.env.VITE_API_URL
+});
+
 class AdminService {
     async refresh(refresh) {
         console.log("Refresh получил refresh: " + JSON.stringify(refresh))
         try {
             console.log("Refresh запрос начался")
-            const { data } = await axios.post('/api/auth/refresh', {}, {
+            const { data } = await api.post('/auth/refresh', {}, {
                 headers: {
                     'Authorization': `Bearer ${refresh}`
                 }
@@ -27,7 +31,7 @@ class AdminService {
     ) {
         console.log('Сохранение... patchUser')
         try {
-            const { data } = await axios.patch('/api/admin/patch', dto, {
+            const { data } = await api.patch('/admin/patch', dto, {
                 headers: {
                     'Authorization': `Bearer ${access_token}`
                 }
@@ -46,7 +50,7 @@ class AdminService {
                     changeAccessToken(newToken.access_token);
                     console.log("Новый access токен: " + newToken.access_token)
 
-                    const { data } = await axios.patch('/api/admin/patch', dto, {
+                    const { data } = await api.patch('/admin/patch', dto, {
                         headers: {
                             'Authorization': `Bearer ${access_token}`
                         }
@@ -69,7 +73,7 @@ class AdminService {
         changeAccessToken
     ) {
         try {
-            const { data } = await axios.patch('/api/admin/delete', {}, {
+            const { data } = await api.patch('/admin/delete', {}, {
                 headers: {
                     'Authorization': `Bearer ${access_token}`
                 }
@@ -86,7 +90,7 @@ class AdminService {
                     changeAccessToken(newToken.access_token);
                     console.log("Новый access токен: " + newToken.access_token)
 
-                    const { data } = await axios.patch('/api/admin/delete', {}, {
+                    const { data } = await api.patch('/admin/delete', {}, {
                         headers: {
                             'Authorization': `Bearer ${access_token}`
                         }

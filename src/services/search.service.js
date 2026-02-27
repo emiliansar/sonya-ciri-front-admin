@@ -2,12 +2,16 @@ import axios from "axios";
 
 axios.defaults.withCredentials = true;
 
+const api = axios.create({
+  baseURL: import.meta.env.VITE_API_URL
+});
+
 class SearchService {
     async refresh(refresh) {
         console.log("Refresh получил refresh: " + JSON.stringify(refresh))
         try {
             console.log("Refresh запрос начался")
-            const {data} = await axios.post('/api/auth/refresh', {}, {
+            const {data} = await api.post('/auth/refresh', {}, {
                 headers: {
                     'Authorization': `Bearer ${refresh}`
                 }
@@ -26,7 +30,7 @@ class SearchService {
     ) {
         console.log("Вызван поиск: ", text)
         try {
-            const { data } = await axios.get(`/api/search?text=${text}`, {
+            const { data } = await api.get(`/search?text=${text}`, {
                 headers: {
                     'Authorization': `Bearer ${access_token}`
                 }
@@ -43,7 +47,7 @@ class SearchService {
                     changeAccessToken(newToken.access_token);
                     console.log("Новый access токен: " + newToken.access_token)
 
-                    const { data } = await axios.get(`/api/search?text=${text}`, {
+                    const { data } = await api.get(`/search?text=${text}`, {
                         headers: {
                             'Authorization': `Bearer ${access_token}`
                         }

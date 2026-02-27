@@ -106,7 +106,7 @@ export default function Chart() {
     }
 
     return (
-        <Card className="w-full">
+        <Card className="min-w-[800px] w-full">
             <CardHeader>
                 <CardTitle>Почасовая статистика - {currentUser.first_name} {currentUser.last_name}
                 </CardTitle>
