@@ -54,7 +54,7 @@ export function SearchContextProvider({ children }) {
         }
 
         if (isLoadingSearch || !isSuccessSearch) {
-            console.log("Загрузка данных: ", text)
+            console.log("Загрузка данных: ", tag)
             return
         }
 
