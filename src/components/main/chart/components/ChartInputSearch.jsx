@@ -10,6 +10,11 @@ export default function ChartInputSearch() {
 
     const [text, setText] = useState("")
 
+    const appoint = (text) => {
+        console.log("appoint получил text: ", text)
+        changeTag(text)
+    }
+
     return (
         <div>
             <InputGroup
@@ -24,7 +29,7 @@ export default function ChartInputSearch() {
                     <InputGroupButton
                         aria-label="search"
                         title="Поиск"
-                        onClick={() => changeTag(text)}
+                        onClick={() => appoint(text)}
                         variant="secondary"
                     >
                         <Search />

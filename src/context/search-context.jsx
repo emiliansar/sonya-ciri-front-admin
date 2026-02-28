@@ -36,8 +36,9 @@ export function SearchContextProvider({ children }) {
     })
 
     const changeTag = (text) => {
+        console.log("ChangeTag получил text: ", text)
         if (!text.trim() || text.trim() === '') {
-            return
+            return console.log("Текст не прошёл проверку: ", text)
         }
 
         console.log("Изменение тега: ", text)
@@ -47,11 +48,13 @@ export function SearchContextProvider({ children }) {
 
     useEffect(() => {
         if (tag === '') {
+            console.log("Изменение тега пусто: ", tag)
             setResults([])
             return
         }
 
         if (isLoadingSearch || !isSuccessSearch) {
+            console.log("Загрузка данных: ", text)
             return
         }
 
