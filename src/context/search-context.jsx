@@ -53,10 +53,10 @@ export function SearchContextProvider({ children }) {
             return
         }
 
-        if (isLoadingSearch || !isSuccessSearch) {
-            console.log("Загрузка данных: ", tag)
-            return
-        }
+        // if (isLoadingSearch || !isSuccessSearch) {
+        //     console.log("Загрузка данных: ", tag)
+        //     return
+        // }
 
         const filteredData = users?.filter(user => user?.chronoform?.[0]?.tag === tag)
 
