@@ -46,6 +46,15 @@ export function SearchContextProvider({ children }) {
     }
 
     useEffect(() => {
+        if (tag === '') {
+            setResults([])
+            return
+        }
+
+        if (isLoadingSearch || !isSuccessSearch) {
+            return
+        }
+
         const filteredData = users?.filter(user => user?.chronoform?.[0]?.tag === tag)
 
         if (filteredData?.length > 0) {
